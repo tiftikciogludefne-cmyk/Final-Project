@@ -212,63 +212,81 @@ def main():
 def show_results():
     #find the highest score
     highest_score = max(scores.values())
-    
-    print("Welcome to the Harvard Class Personality Quiz!")
-    print("Answer each question by typing a, b, c, or d.")
-    print()
 
-    # ask each question
-    # for q in questions:
-        # print(q["question"])
-        # for letter in ["a", "b", "c", "d"]:
-            # print(letter + ")", q["choices"][letter])
-
-        button = tk.Button(...).lower().strip() # THIS IS FOR THE UI
-        # so we make a button rather than a, b, c,d 
-
-        # keep asking until the user gives valid input
-        while answer not in ["a", "b", "c", "d"]:
-            print("Please enter only a, b, c, or d.")
-            answer = input("Your answer: ").lower().strip()
-
-        # add 1 point to every class tied to that answer
-        for course in q["points"][answer]:
-            scores[course] += 1
-
-        print()
-
-    # find the highest score
-    # highest_score = max(scores.values())
-
-       # find all classes that have the highest score
-    # (there might be more than one if there is a tie)
+    #find all classes that have highest score
     winners = []
-    for course in scores:  # loop through each class in the dictionary
-        if scores[course] == highest_score:
-            winners.append(course)  # add it to winners if it matches the max score
-
-    # print final result
-    # print("YOUR RESULT!!!")
-
-    # if only one winner, print it normally
-    if len(winners) == 1:
-        print("You are most like:", winners[0])
-    else:
-        # if multiple winners, print all of them
-        print("You are a mix of these Harvard classes:")
-        for winner in winners:
-            print("-", winner)
-
-    print()
-    # print("PERSONALITY REPORT!!!")
-
-    # loop through each class again to show scores and percentages
     for course in scores:
-        # convert score (out of 10) into a percentage
-        percentage = (scores[course] / 10) * 100
+        if scores[course] == highest_score:
+            winners.append(course)
 
-        # print both the raw score and the percentage (rounded to whole number)
-        print(f"{course}: {scores[course]}/10 ({percentage:.0f}%)")
+    result_text = "YOUR RESULT!!!\n"
 
+    #print one winner or all tied winners
+    if len(winners) == 1:
+        result_text += "You are most like: " + winners[0] + "\n\n"
+    else:
+        result_text += "You are a mix of these Harvard classes big dog:\n"
+        for winner in winners:
+            result_text += "- " + winner + "\n"
+        result_text += "\n"
+
+    result_text += "Personality Report!!!\n\n" #to have empty lines
+
+    #show each class score and percent
+    for course in scores:
+            percentage = (scores[course] / 10) * 100
+            result_text += f"{course}: {scores[course]}/10 ({percentage:.0f}%)\n"
+
+    #show the result in the other window
+    question_label.config(text=result_text)
+
+    #hide the answer buttons bc the questions are done
+    button_a.pack_forget()
+    button_b.pack_forget()
+    button_c.pack_forget()
+    button_d.pack_forget()
+
+    #create the main window
+    root = tk.Tk()
+    root.title("Harvard Class Personality Quiz")
+
+    #title at the top
+    titlw_label = tk.Label(
+        root,
+        text = "Harvard Class Personality Quiz",
+        font=("Arial", 20, "bold")
+    )
+
+    title_label.pack(pady=10)
+
+    #label where the questions or final result will appear
+    question_label = tk.Label(
+        root,
+        text = "",
+        font=("Arial", 14),
+        wraplength = 600,
+        justify="center"
+    )
+    question_label.pack(pady=20)
+
+    #answer buttons
+    button_a = tk.Button(root, text="", width=60, command=lambda: choose_answer("a"))
+    button_a.pack(pady=5)
+
+    button_b = tk.Button(root, text="", width=60, command=lambda: choose_answer("b"))
+    button_b.pack(pady=5)
+
+    button_c = tk.Button(root, text="", width=60, command=lambda: choose_answer("c"))
+    button_c.pack(pady=5)
+
+    button_d = tk.Button(root, text="", width=60, command=lambda: choose_answer("d"))
+    button_d.pack(pady=5)
+
+    #show the first questions
+    show_questions()
+
+    #keep the window open
+    root.mainloop()
 
 main()
+    
