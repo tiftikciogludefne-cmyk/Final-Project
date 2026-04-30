@@ -1,3 +1,5 @@
+import tkinter as tk
+
 def main():
     # list of Harvard classes in the quiz
     # how do we implement the humanities stem esque?? #from the email
@@ -176,17 +178,53 @@ def main():
         }
     ]
 
+    current_question = 0 # keeps track of which question the user is currently on
+
+    def show_question():
+        #get the current question dictionary
+        q = questions[current_question]
+
+        #change the label to show the current question
+        question_label.config(text=q["question"])
+
+        #change each button to show the current answer choices
+        button_a.config(["choices"]["a"])
+        button_b.config(["choices"]["b"])
+        button_c.config(["choices"]["c"])
+        button_d.config(["choices"]["d"])
+
+    def choose_answer(answer): #ASK
+        nonlocal current_question
+
+        #add one point to every class thats like connected to the answer clicked
+        for course in questions[corrent_question["points"][answer]]:
+            scores[course] += 1
+
+    #move to the next question
+        current_question += 1
+
+    #if there arew more questions show the next one
+    if current_question < len(questions):
+        show_question()
+    else:
+        show_results() # get these checked in office hours
+
+def show_results():
+    #find the highest score
+    highest_score = max(scores.values())
+    
     print("Welcome to the Harvard Class Personality Quiz!")
     print("Answer each question by typing a, b, c, or d.")
     print()
 
     # ask each question
-    for q in questions:
-        print(q["question"])
-        for letter in ["a", "b", "c", "d"]:
-            print(letter + ")", q["choices"][letter])
+    # for q in questions:
+        # print(q["question"])
+        # for letter in ["a", "b", "c", "d"]:
+            # print(letter + ")", q["choices"][letter])
 
-        answer = input("Your answer: ").lower().strip()
+        button = tk.Button(...).lower().strip() # THIS IS FOR THE UI
+        # so we make a button rather than a, b, c,d 
 
         # keep asking until the user gives valid input
         while answer not in ["a", "b", "c", "d"]:
@@ -200,7 +238,7 @@ def main():
         print()
 
     # find the highest score
-    highest_score = max(scores.values())
+    # highest_score = max(scores.values())
 
        # find all classes that have the highest score
     # (there might be more than one if there is a tie)
@@ -210,7 +248,7 @@ def main():
             winners.append(course)  # add it to winners if it matches the max score
 
     # print final result
-    print("YOUR RESULT!!!")
+    # print("YOUR RESULT!!!")
 
     # if only one winner, print it normally
     if len(winners) == 1:
@@ -222,7 +260,7 @@ def main():
             print("-", winner)
 
     print()
-    print("PERSONALITY REPORT!!!")
+    # print("PERSONALITY REPORT!!!")
 
     # loop through each class again to show scores and percentages
     for course in scores:
