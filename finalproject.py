@@ -180,7 +180,41 @@ def main():
 
     current_question = 0 # keeps track of which question the user is currently on
 
-    
+#create the main window
+    root = tk.Tk()
+    root.title("Harvard Class Personality Quiz")
+
+    #title at the top
+    titlw_label = tk.Label(
+        root,
+        text = "Harvard Class Personality Quiz",
+        font=("Arial", 20, "bold")
+    )
+
+    title_label.pack(pady=10)
+
+    #label where the questions or final result will appear
+    question_label = tk.Label(
+        root,
+        text = "",
+        font=("Arial", 14),
+        wraplength = 600,
+        justify="center"
+    )
+    question_label.pack(pady=20)
+
+    #answer buttons
+    button_a = tk.Button(root, text="", width=60, command=lambda: choose_answer("a"))
+    button_a.pack(pady=5)
+
+    button_b = tk.Button(root, text="", width=60, command=lambda: choose_answer("b"))
+    button_b.pack(pady=5)
+
+    button_c = tk.Button(root, text="", width=60, command=lambda: choose_answer("c"))
+    button_c.pack(pady=5)
+
+    button_d = tk.Button(root, text="", width=60, command=lambda: choose_answer("d"))
+    button_d.pack(pady=5)
 
     def show_question():
         #get the current question dictionary
@@ -221,68 +255,33 @@ def show_results():
         if scores[course] == highest_score:
             winners.append(course)
 
-    result_text = "YOUR RESULT!!!\n"
+        result_text = "YOUR RESULT!!!\n"
 
     #print one winner or all tied winners
-    if len(winners) == 1:
-        result_text += "You are most like: " + winners[0] + "\n\n"
-    else:
-        result_text += "You are a mix of these Harvard classes big dog:\n"
-        for winner in winners:
-            result_text += "- " + winner + "\n"
-        result_text += "\n"
+        if len(winners) == 1:
+            result_text += "You are most like: " + winners[0] + "\n\n"
+        else:
+            result_text += "You are a mix of these Harvard classes big dog:\n"
+            for winner in winners:
+                result_text += "- " + winner + "\n"
+            result_text += "\n"
 
-    result_text += "Personality Report!!!\n\n" #to have empty lines
+        result_text += "Personality Report!!!\n\n" #to have empty lines
 
     #show each class score and percent
-    for course in scores:
+        for course in scores:
             percentage = (scores[course] / 10) * 100
             result_text += f"{course}: {scores[course]}/10 ({percentage:.0f}%)\n"
 
     #show the result in the other window
-    question_label.config(text=result_text)
+        question_label.config(text=result_text)
 
     #hide the answer buttons bc the questions are done
-    button_a.pack_forget()
-    button_b.pack_forget()
-    button_c.pack_forget()
-    button_d.pack_forget()
+        button_a.pack_forget()
+        button_b.pack_forget()
+        button_c.pack_forget()
+        button_d.pack_forget()
 
-    #create the main window
-    root = tk.Tk()
-    root.title("Harvard Class Personality Quiz")
-
-    #title at the top
-    titlw_label = tk.Label(
-        root,
-        text = "Harvard Class Personality Quiz",
-        font=("Arial", 20, "bold")
-    )
-
-    title_label.pack(pady=10)
-
-    #label where the questions or final result will appear
-    question_label = tk.Label(
-        root,
-        text = "",
-        font=("Arial", 14),
-        wraplength = 600,
-        justify="center"
-    )
-    question_label.pack(pady=20)
-
-    #answer buttons
-    button_a = tk.Button(root, text="", width=60, command=lambda: choose_answer("a"))
-    button_a.pack(pady=5)
-
-    button_b = tk.Button(root, text="", width=60, command=lambda: choose_answer("b"))
-    button_b.pack(pady=5)
-
-    button_c = tk.Button(root, text="", width=60, command=lambda: choose_answer("c"))
-    button_c.pack(pady=5)
-
-    button_d = tk.Button(root, text="", width=60, command=lambda: choose_answer("d"))
-    button_d.pack(pady=5)
 
     #show the first questions
     show_questions()
