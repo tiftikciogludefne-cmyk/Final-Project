@@ -240,9 +240,9 @@ def main():
         current_question += 1
 
     #if there arew more questions show the next one
-    if current_question < len(questions):
-        show_question()
-    else:
+        if current_question < len(questions):
+            show_question()
+        else:
             show_results() # get these checked in office hours
 
     def show_results():
