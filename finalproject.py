@@ -180,6 +180,8 @@ def main():
 
     current_question = 0 # keeps track of which question the user is currently on
 
+    
+
     def show_question():
         #get the current question dictionary
         q = questions[current_question]
@@ -289,4 +291,4 @@ def show_results():
     root.mainloop()
 
 main()
-    
+
