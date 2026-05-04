@@ -185,7 +185,7 @@ def main():
     root.title("Harvard Class Personality Quiz")
 
     #title at the top
-    titlw_label = tk.Label(
+    title_label = tk.Label(
         root,
         text = "Harvard Class Personality Quiz",
         font=("Arial", 20, "bold")
@@ -224,16 +224,16 @@ def main():
         question_label.config(text=q["question"])
 
         #change each button to show the current answer choices
-        button_a.config(["choices"]["a"])
-        button_b.config(["choices"]["b"])
-        button_c.config(["choices"]["c"])
-        button_d.config(["choices"]["d"])
+        button_a.config(text=q["choices"]["a"])
+        button_b.config(text=q["choices"]["b"])
+        button_c.config(text=q["choices"]["c"])
+        button_d.config(text=q["choices"]["d"])
 
     def choose_answer(answer): #ASK
         nonlocal current_question
 
         #add one point to every class thats like connected to the answer clicked
-        for course in questions[corrent_question["points"][answer]]:
+        for course in questions[current_question]["points"][answer]:
             scores[course] += 1
 
     #move to the next question
@@ -284,7 +284,7 @@ def main():
 
 
     #show the first questions
-    show_questions()
+    show_question()
 
     #keep the window open
     root.mainloop()
