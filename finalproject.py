@@ -243,17 +243,17 @@ def main():
     if current_question < len(questions):
         show_question()
     else:
-        show_results() # get these checked in office hours
+            show_results() # get these checked in office hours
 
-def show_results():
+    def show_results():
     #find the highest score
-    highest_score = max(scores.values())
+        highest_score = max(scores.values())
 
     #find all classes that have highest score
-    winners = []
-    for course in scores:
-        if scores[course] == highest_score:
-            winners.append(course)
+        winners = []
+        for course in scores:
+            if scores[course] == highest_score:
+                winners.append(course)
 
         result_text = "YOUR RESULT!!!\n"
 
